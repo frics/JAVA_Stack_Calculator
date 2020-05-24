@@ -120,7 +120,7 @@ public class Calculator {
                     if (infix.length() > i + 1) {
                         op = infix.charAt(i+1);
                         if (op>='0'&&op<='9') {
-                            postfix.append(op).append(" ");
+                            postfix.append(op);
                             i++;
                         }else if(op == '.'){
                             postfix.append(op);
