@@ -146,32 +146,32 @@ public class Calculator {
                     break;
                 default:
                     postfix.append(ch);
-                        while (true) { //1의 자리 이상의 숫자를 공백을 이용해 구분
-                            if (infix.length() > i + 1) { //i가 해당 문자열보다 길지 않도록 조건문 삽입
-                                op = infix.charAt(i + 1); //다음 문자를 확인
-                                if (op >= '0' && op <= '9') { //다음 문자가 숫자이면 1의 자리 이상으로 판별, ch 뒤에 붙임
-                                    postfix.append(op);
-                                    i++;
-                                } else if (op == '.') { //해당 숫자가 소수점이 있는지 확인
-                                    postfix.append(op);
-                                    i++;
-                                } else { //다음 문자가 숫자가 아닐 경우 공백 삽입 후 반복문 탈출
-                                    postfix.append(" ");
-                                    break;
-                                }
-                            }
-                            else { //해당 수식의 끝이 왔을 경우 공백 삽입 후 반복문 탈출
+                    while (true) { //1의 자리 이상의 숫자를 공백을 이용해 구분
+                        if (infix.length() > i + 1) { //i가 해당 문자열보다 길지 않도록 조건문 삽입
+                            op = infix.charAt(i + 1); //다음 문자를 확인
+                            if (op >= '0' && op <= '9') { //다음 문자가 숫자이면 1의 자리 이상으로 판별, ch 뒤에 붙임
+                                postfix.append(op);
+                                i++;
+                            } else if (op == '.') { //해당 숫자가 소수점이 있는지 확인
+                                postfix.append(op);
+                                i++;
+                            } else { //다음 문자가 숫자가 아닐 경우 공백 삽입 후 반복문 탈출
                                 postfix.append(" ");
                                 break;
                             }
                         }
+                        else { //해당 수식의 끝이 왔을 경우 공백 삽입 후 반복문 탈출
+                            postfix.append(" ");
+                            break;
+                        }
+                    }
             }
         }
         while(!operator.isEmpty()) //연산자 스택에 남아 있는 연산자 삽입
             if(operator.top == 0) //마지막 연산자일 경우 공백 삽입 방지
                 postfix.append(operator.pop());
             else
-            postfix.append(operator.pop()).append(" ");
+                postfix.append(operator.pop()).append(" ");
         return postfix.toString();
     }
 
@@ -181,7 +181,7 @@ public class Calculator {
         for(int i=0; i<expressionArray.length; i++){
             String ch = expressionArray[i];
             try {
-               // if(
+                // if(
                 double num = Double.parseDouble(ch);
                 operand.push(num);
             }catch (NumberFormatException e){
@@ -208,3 +208,4 @@ public class Calculator {
     }
 
 }
+
