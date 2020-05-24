@@ -43,7 +43,7 @@ public class Calculator {
 
         while (true) {
             System.out.print("Infix로 수식을 입력하시오. \n>>> ");
-            infix = s.nextLine();
+            infix = s.nextLine(); // nextLine을 사용하여 공백도 입력받을 수 있게 처
             infix = calculator.Preprocessor(infix); //입력한 수식에 공백이 있는 경우 제거
             System.out.println(infix);
             postfix = calculator.Transform(infix);
@@ -59,7 +59,6 @@ public class Calculator {
         StringBuilder fitExperssion = new StringBuilder();
         for (int i=0; i<splitExpression.length; i++) {
             String value = splitExpression[i];
-            System.out.println("(화긴 :" + splitExpression[i] + ")");
             if (!(value.equals(" ")))
                 fitExperssion.append(value);
         }
@@ -117,14 +116,21 @@ public class Calculator {
                     operator.push(ch);
                     break;
                 default:
-                    postfix.append(ch).append(" ");
+                    postfix.append(ch);
                     if (infix.length() > i + 1) {
                         op = infix.charAt(i+1);
-                        if (op == '+' || op == '-' || op == '*' || op == '/'
-                                || op == ')') {
-                            //postfix.append(" ");
+                        if (op>='0'&&op<='9') {
+                            postfix.append(op).append(" ");
+                            i++;
+                        }else if(op == '.'){
+                            postfix.append(op);
+                            i++;
                         }
+                        else
+                            postfix.append(" ");
                     }
+                    else
+                        postfix.append(" ");
                     break;
             }
         }
@@ -137,46 +143,12 @@ public class Calculator {
     }
 
     private double calculate(String postfix){
-        /*
-        int cnt=0;
-        double operand1, operand2, result;
-        for(int i=0; i<postfix.length(); i++){
-            char op = postfix.charAt(i);
-
-            if(op>= '0' && op<='9'){
-                while(postfix.charAt(i+cnt)!=' ')
-                    cnt++;
-                result = (double)postfix.charAt(i);
-                i += cnt;
-                cnt=0;
-                operand.push(result);
-            }else{
-                if(op != ' '){
-                    operand1 = operand.pop();
-                    operand2 = operand.pop();
-                    switch (op) {
-                        case '+':
-                            operand.push(operand2 + operand1);
-                            break;
-                        case '-':
-                            operand.push(operand2 - operand1);
-                            break;
-                        case '*':
-                            operand.push(operand2 * operand1);
-                            break;
-                        case '/':
-                            operand.push(operand2 / operand1);
-                            break;
-                    }
-                }
-            }
-        }
-*/
         String[] expressionArray = postfix.split(" ");
-        //String ch = "";
 
-        for(String ch:expressionArray){
+        for(int i=0; i<expressionArray.length; i++){
+            String ch = expressionArray[i];
             try {
+               // if(
                 double num = Double.parseDouble(ch);
                 operand.push(num);
             }catch (NumberFormatException e){
