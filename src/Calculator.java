@@ -43,7 +43,7 @@ public class Calculator {
 
         while (true) {
             System.out.print("Infix로 수식을 입력하시오. \n>>> ");
-            infix = s.next();
+            infix = s.nextLine();
             infix = calculator.Preprocessor(infix); //입력한 수식에 공백이 있는 경우 제거
             System.out.println(infix);
             postfix = calculator.Transform(infix);
@@ -55,10 +55,14 @@ public class Calculator {
     }
 
     private String Preprocessor(String infix) { //입력한 수식에 공백이 있는 경우 제거
-        String[] splitExpression = infix.split(" ");
+        String[] splitExpression = infix.split("");
         StringBuilder fitExperssion = new StringBuilder();
-        for (String value : splitExpression)
-            fitExperssion.append(value);
+        for (int i=0; i<splitExpression.length; i++) {
+            String value = splitExpression[i];
+            System.out.println("(화긴 :" + splitExpression[i] + ")");
+            if (!(value.equals(" ")))
+                fitExperssion.append(value);
+        }
 
         return fitExperssion.toString(); //공백이 제거된 수식 리턴
     }
